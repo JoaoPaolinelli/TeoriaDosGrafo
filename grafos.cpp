@@ -171,7 +171,8 @@ int calcularDistancia(int numVertice,int ** matriz) {
 
     string vizinhos = descobrirVizinhos(distanciaB,numVertice, matriz, transformarLetraToPosicao(distanciaA));
 
-    cout << "Distancia = " << vizinhos << endl;
+    
+    cout << "Distancia = " << vizinhos.size() -1 << endl;
 
 }
 
@@ -229,63 +230,59 @@ string recursivoVizinho(char distanciaB ,string vizinhos, int **matriz,  int num
 
     if(vizinhos.find(distanciaB) != string::npos) {
 
-            cout <<"GOT IT" << endl;
-            cout << vizinhos << endl;
-            return vizinhos;
+        cout <<"Vizinhos encontrados: " << vizinhos << endl;
 
     }else {
         for (int i = linhaAtual; i < numVertices; i++)
         {
-            //A
-            if(linhaAtual == 0) {
-                if(matriz[linhaAtual][i+1] == 1) {
-                    vizinhos += "A";
-                    vizinhos = recursivoVizinho(distanciaB, vizinhos, matriz, numVertices, linhaAtual+1);
-                    continue;
-                }
-            }
-            
-            //B
-            if(linhaAtual == 1) {
 
-                if(matriz[linhaAtual][i+1] == 1) {
-                    vizinhos += "B";
-                    vizinhos= recursivoVizinho(distanciaB, vizinhos, matriz, numVertices, linhaAtual+1);
-                    continue;
-                }
+            switch (linhaAtual)
+            {
+                //A
+                case 0:
+                    if(matriz[linhaAtual][i+1] == 1) {
+                        vizinhos += "A";
+                        vizinhos = recursivoVizinho(distanciaB, vizinhos, matriz, numVertices, linhaAtual+1);
+                    }
+                break;
 
-            }
+                //B
+                case 1:
+                    if(matriz[linhaAtual][i+1] == 1) {
+                            vizinhos += "B";
+                            vizinhos= recursivoVizinho(distanciaB, vizinhos, matriz, numVertices, linhaAtual+1);
+                    }
+                break;
 
-            //C
-            if(linhaAtual == 2) {
-                if(matriz[linhaAtual][i+1] == 1) {
-                    vizinhos += "C";
-                    vizinhos= recursivoVizinho(distanciaB, vizinhos, matriz, numVertices, linhaAtual+1);
-                    continue;
-                } 
-            }
+                //C
+                case 2:
+                    if(matriz[linhaAtual][i+1] == 1) {
+                        vizinhos += "C";
+                        vizinhos= recursivoVizinho(distanciaB, vizinhos, matriz, numVertices, linhaAtual+1);
+                    } 
+                break;
 
-            //D
-            if(linhaAtual == 3) {
-                if(matriz[linhaAtual][i+1] == 1) {
-                vizinhos += "D";
-                    vizinhos= recursivoVizinho(distanciaB, vizinhos, matriz, numVertices, linhaAtual+1);
-                    continue;
-                } 
-            }
-
-            //E
-            if(linhaAtual == 4) {
-                if(matriz[linhaAtual][i-1] == 1) {
-                    vizinhos += "E";
-                    vizinhos= recursivoVizinho(distanciaB, vizinhos, matriz, numVertices, linhaAtual+1);
-                    continue;
-                } 
-            }
+                //D
+                case 3:
+                    if(matriz[linhaAtual][i+1] == 1) {
+                        vizinhos += "D";
+                        vizinhos= recursivoVizinho(distanciaB, vizinhos, matriz, numVertices, linhaAtual+1);
+                
+                    } 
+                break;
+                
+                //E
+                case 4:
+                    if(matriz[linhaAtual][i-1] == 1) {
+                        vizinhos += "E";
+                        vizinhos= recursivoVizinho(distanciaB, vizinhos, matriz, numVertices, linhaAtual+1);
+                    } 
+                break;
+                
+                default: cout << "\n\n\n\nErro de execucao\n\n\n\t\t\t" << endl; break;
+            }  
         }
-        return vizinhos;
-        
-        
     } 
+
     return vizinhos;
 }
