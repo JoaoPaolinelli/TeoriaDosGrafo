@@ -15,10 +15,15 @@ int calcularDistancia(int numVertice, int ** matriz);
 
 string descobrirVizinhos(char distanciaB, int numVertice, int ** matriz, int vertice);
 
-int transformarLetraToPosicao(int posicao);
+int transformarLetraToPosicao(char posicao);
 
 string recursivoVizinho(char distanciaB, string vizinhos, int ** matriz, int numVertice, int posicaoAtual);
 
+int getGrauVertice(int numVertice, int ** matriz);
+
+int  getComponentes(string vertices , int ** matriz);
+
+string  identificarVertices(int numVertice, int ** matriz);
 
 
 int main (){
@@ -30,7 +35,6 @@ int main (){
     cin >> numVertice;
     cout << endl;
 
-
     int ** matriz = criarMatriz(numVertice);
 
     printMatriz(numVertice, matriz);
@@ -38,11 +42,17 @@ int main (){
     matriz = incluirAresta(matriz);
     printMatriz(numVertice, matriz);
 
+    string vertices = identificarVertices(numVertice, matriz);
+
+    int number = getComponentes(vertices, matriz);
+
+
     //matriz = removerAresta(matriz);
     //printMatriz(numVertice,matriz);
 
-    int distancia =  calcularDistancia(numVertice, matriz);
+    // int distancia =  calcularDistancia(numVertice, matriz);
 
+    // int grauVertice = getGrauVertice(numVertice,matriz);
 }
 
 void printMatriz(int numVertice , int ** matriz) {
@@ -285,4 +295,78 @@ string recursivoVizinho(char distanciaB ,string vizinhos, int **matriz,  int num
     } 
 
     return vizinhos;
+}
+
+int getGrauVertice(int numVertice, int ** matriz) {
+
+    int qtdGrau = 0; char vertice;
+
+    cout << "[Grau] Insira o vertice desejado: ";
+    cin >> vertice;
+    cout << endl;
+
+    int coordenada = transformarLetraToPosicao(vertice);
+    int * posicoes = new int[2];
+
+    if(coordenada == 0) {
+        posicoes[0] = 0;
+        posicoes[1] = 0;
+    }else {
+        posicoes[0] = to_string(coordenada)[0];
+        posicoes[1] = to_string(coordenada)[1];
+    }
+   
+    int valor = to_string(coordenada)[1];
+
+    string a; a += to_string(coordenada)[1];
+
+    for (int i = 0; i <= numVertice; i++) { 
+
+        if(matriz[stoi(a)][i] == 1){
+            qtdGrau++;
+        }
+    }
+
+    cout << "[Grau] Vertice: " << vertice << " = " << qtdGrau << endl;
+    return qtdGrau;
+
+}
+
+
+string  identificarVertices(int numVertice, int ** matriz) {
+
+    int coluna =0;
+    string * vertices = new string[numVertice];
+    string letras;
+    
+    for(int i=0; i < numVertice; i++) {
+        for(int j=0; j < numVertice; j++) {
+            if(matriz[j][i] == 1) {
+                if(i == 0) { letras += "A "; }
+                if(i == 1) { letras += "B "; }
+                if(i == 2) { letras += "C "; }
+                if(i == 3) { letras += "D "; }
+                if(i == 4) { letras += "E "; }
+            }
+        }
+    }
+
+    cout << "Vertices: " << letras << endl;
+
+    return letras;
+   
+}
+
+int  getComponentes(string vertices ,int ** matriz) {
+
+
+    string newVertices;
+    char first = ' ';
+    char second = 'a';
+    newVertices = vertices.replace(vertices.begin(), vertices.end(), second, first);
+
+    cout << "Novos vertices: " << newVertices << endl;
+    
+    return 0;
+
 }
