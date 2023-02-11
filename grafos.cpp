@@ -366,6 +366,8 @@ int  getComponentes(string vertices ,int ** matriz) {
     newVertices = vertices.replace(vertices.begin(), vertices.end(), second, first);
 
     cout << "Novos vertices: " << newVertices << endl;
+
+    
     
     return 0;
 
