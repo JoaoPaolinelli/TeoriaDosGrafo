@@ -8,16 +8,19 @@
 using namespace std;
 
 class Grafo{
-
+    public:
     Grafo(string nome, int qtdVertice) {
         this->nome = nome;
         this->qtdVertice = qtdVertice;
+
+        
+        this->vertices = new list<Vertice>();
 
     }
 
 
     string nome;
-    stack <Vertice>  vertices;
+    list <Vertice>  vertices;
     int qtdVertice;
 
 
@@ -41,11 +44,19 @@ class Aresta {
 
 class Vertice{
 
+    public:
+    Vertice ();
+
     Vertice(string label) {
         this->label = label;
     }
+
     string label;
     list <Aresta> arestas;
+
+    void setName(string label) {
+        this->label = label;
+    }
 
 
 };
@@ -100,40 +111,29 @@ string** makeSplit (string qualquer, char whiteSpace) {
 
 int main() {
 
-    string nome_completo = "A B C D E F";
-    
-    string ** vetorString = makeSplit(nome_completo, ' ');
+   Grafo grafo ("JohnnyxD", 6);
 
-    int sizeString = countSplit(nome_completo, ' ' );
+   Vertice bolinhas[6];
 
+    string * nomes = new string[6];
+        nomes[0] = "A";
+        nomes[1] = "B";
+        nomes[2] = "C";
+        nomes[3] = "D";
+        nomes[4] = "E";
+        nomes[5] = "F";
 
-    
-    cout << "Teste split" << endl;
+    for(int i=0; i < 6; i ++) {
 
-    for(int i=0; i < sizeString+1; i++) {
+        bolinhas[i].setName(nomes[i]);
 
-        cout <<  vetorString[i][0] << endl;
-    }
-
-
-    vetorString[0][0] = "B";
-    vetorString[0][1] = "C";
-    vetorString[0][2] = "D";
-
-    vetorString[1][0] = "F";
-    vetorString[1][1] = "G";
-    vetorString[1][2] = "H"; 
-
-
-
-     for(int i=0; i < sizeString+1; i++) {
-
-         for(int j=0; j < sizeString+1; j++) {
-
-            cout <<  vetorString[i][0] << endl;
-        }
+        grafo.vertices.insert(bolinhas);
 
     }
+
+
+
+
 
 
 
